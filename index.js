@@ -1,6 +1,9 @@
+$('.sidebar').hide();
+
 $('.js-search-form').submit(event => {
 	event.preventDefault();
     initMap();
+    $('.sidebar').show();
 	$('.js-query').val('');
 });
 
@@ -36,6 +39,7 @@ $(() => {
         }
         initialize();
         codeAddress();
+        compileResults();
         let home = {
             lat: 32.968288,
             lng: -96.867130
@@ -58,3 +62,16 @@ $(() => {
         });
     }
 })
+
+function compileResults() {
+    businessArr.forEach(function(item) {
+        let businessName = item.name;
+        let businessLocation1 = item.location.display_address[0];
+        let businessLocation2 = item.location.display_address[1];
+        let businessRating = item.rating;
+        let resultString = `
+            <li>${businessName} ${businessLocation1} ${businessLocation2} ${businessRating}</li>
+        `;
+        $('.sidebar').append(resultString);
+    });
+}

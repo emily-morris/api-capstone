@@ -5,21 +5,35 @@
 	<meta name="viewport" content="width=device-width">
 	<title>API Capstone</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900">
 	<link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
-	<main role="main">
-		<h1>Find great child care near you</h1>
-			<form action="#" class="js-search-form">
-				<label for="query"></label>
-				<input type="text" id="address" class="js-query" placeholder="Enter address" aria-label="search">
-				<button type="submit">Submit</button>
-			</form>
-			<div id="map"></div>
-	</main>
+	<header class="header">
+		<div class="text-box">
+			<h1 class="heading-primary">
+				<span class="heading-primary-main">App Title</span>
+				<span class="heading-primary-sub">Find great child care near you</span>
+			</h1>
+			<a href="#" class="btn btn-white btn-animated">Search</a>
+		</div>
+	</header>
+	<div>
+		<form action="#" class="js-search-form">
+			<label for="query"></label>
+			<input type="text" id="address" class="js-query" placeholder="Please enter address" aria-label="search">
+			<button type="submit">Submit</button>
+		</form>
+	</div>
+	<div id="map"></div>
+	<div class="sidebar">
+		<div class="show-results">
+			<ul class="results" id="results"></ul>
+		</div>
+	</div>
 	<script src="store.js"></script>
 	<script src="index.js"></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1_0d71jYnnDc9PCGNG7ulYOrhYQVNgQY"
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1_0d71jYnnDc9PCGNG7ulYOrhYQVNgQY&q"
   type="text/javascript"></script>	
 </body>
 </html>
