@@ -9,6 +9,9 @@ $('.btn').click(event => {
 
 $('.js-search-form').submit(event => {
 	event.preventDefault();
+    $.get("/", function(data) {
+        console.log(data);
+    });
     initMap();
     $('.sidebar').show();
 	$('.js-query').val('');
