@@ -32,6 +32,7 @@ app.use(express.static('public'));
 app.get('/api-capstone', (req, res) => {
   var response = searchYelp(req.query.address, res);
    console.log(res);
+   res.sendFile(__dirname + '/views/index.html');
   // res.send(searchYelp(req.query.address));
 });
 // listen for requests :)
