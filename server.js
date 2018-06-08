@@ -29,7 +29,7 @@ app.use(express.static('public'));
 
 app.get('/api-capstone', (req, res) => {
   let response = searchYelp(req.query.address, res);
-   res.sendFile(__dirname + '/views/index.html');
+   // res.sendFile(__dirname + '/views/index.html');
 });
 // listen for requests :)
 let listener = app.listen(process.env.PORT, function () {
