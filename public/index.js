@@ -55,12 +55,7 @@ $(() => {
             lat: 32.968288,
             lng: -96.867130
         };
-        map = new google.maps.Map(
-            document.getElementById('map'), {
-                zoom: 11,
-                center: home
-            }
-        );
+        
         businessArr.forEach(function(item) {
             const { latitude, longtitude } = item.coordinates;
             updateMarker(latitude, longtitude);
@@ -85,7 +80,15 @@ function updateMarker(lat, lng) {
     marker = new google.maps.Marker(
         {
             position: {lat, lng},
-            map: map
+            map: createMap()
         }
     );
 }
+
+function createMap() {
+    return new google.maps.Map(
+        document.getElementById('map'), {
+            zoom: 11,
+            center: home
+    }
+)};
