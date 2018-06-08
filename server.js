@@ -13,12 +13,10 @@ function searchYelp(address, res) {
     limit: 10,
     categories: 'childcare'
   };
-  console.log(searchRequest);
   const client = yelp.client(apiKey);
-  var yelpResponse;
+  let yelpResponse;
   client.search(searchRequest).then(response => {
     yelpResponse = response.jsonBody.businesses;
-    console.log(yelpResponse);
     res.send(yelpResponse);
     const prettyJson = JSON.stringify(yelpResponse, null, 4);
     return yelpResponse;
@@ -30,12 +28,10 @@ function searchYelp(address, res) {
 app.use(express.static('public'));
 
 app.get('/api-capstone', (req, res) => {
-  var response = searchYelp(req.query.address, res);
-   console.log(res);
+  let response = searchYelp(req.query.address, res);
    res.sendFile(__dirname + '/views/index.html');
-  // res.send(searchYelp(req.query.address));
 });
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
+let listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
