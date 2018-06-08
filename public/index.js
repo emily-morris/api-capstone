@@ -9,7 +9,7 @@ $('.btn').click(event => {
 
 $('.js-search-form').submit(event => {
 	event.preventDefault();
-    $.get("/api-capstone", function(data) {
+    $.get("/api-capstone?address="+$('.js-query').val(), function(data) {
         console.log(data);
     });
     initMap();

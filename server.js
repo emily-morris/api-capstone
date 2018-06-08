@@ -32,6 +32,7 @@ app.get('/', (req, res) => {
 });
 app.get('/api-capstone', (req, res) => {
   let response = searchYelp(req.query.address, res);
+
    // res.sendFile(__dirname + '/views/index.html');
 });
 // listen for requests :)
