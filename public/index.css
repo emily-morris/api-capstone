@@ -13,23 +13,19 @@ body {
 	padding: 30px;
 }
 
-/*element:hover {
-	animation: moveInRight 1s ease-out;
-}*/
-
-.header {
+.header,
+.search-page {
 	height: 95vh;
 	background-image: linear-gradient(
 		to right bottom, 
 		rgba(126, 213, 111, 0.8), 
 		rgba(40, 180, 131, 0.8)), 
-	url(../api-capstone/StockSnap_UNBCSLVVVY.jpg);
+	url(../assets/StockSnap_UNBCSLVVVY.jpg);
 	background-size: cover;
 	background-position: top;
-/*	clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);*/
 }
 
-.text-box {
+.header__text-box {
 	position: absolute;
 	top: 40%;
 	left: 50%;
@@ -44,20 +40,17 @@ body {
 	margin-bottom: 60px;
 }
 
-.heading-primary-main {
+.heading-primary--main {
 	display: block;
 	font-size: 60px;
 	font-weight: 400;
 	letter-spacing: 39px;
-
 	animation-name: moveInLeft;
 	animation-duration: 1s;
 	animation-timing-function: ease-out;
-	/*animation-delay: 3s;*/
-	/*animation-iteration-count: 3;*/
 }
 
-.heading-primary-sub {
+.heading-primary--sub {
 	display: block;
 	font-size: 20px;
 	font-weight: 700;
@@ -70,10 +63,6 @@ body {
 		opacity: 0;
 		transform: translateX(-100px);
 	}
-
-/*	60% {
-		transform: rotate(180deg);
-	}*/
 
 	80% {
 		transform: translateX(10px);
@@ -134,7 +123,7 @@ body {
 	box-shadow: 0 5px 10px rgba(0,0,0,.2);
 }
 
-.btn-white {
+.btn--white {
 	background-color: #fff;
 	color: #777;
 }
@@ -152,7 +141,7 @@ body {
 	transition: all .4s;
 }
 
-.btn-white::after {
+.btn--white::after {
 	background-color: #fff;
 }
 
@@ -161,7 +150,7 @@ body {
 	opacity: 0;
 }
 
-.btn-animated {
+.btn--animated {
 	animation: moveInBottom .5s ease-out .75s;
 	animation-fill-mode: backwards;
 }
@@ -177,9 +166,11 @@ body {
     overflow-x: hidden;
     padding-top: 20px;
     padding-right: 20px;
+    animation: moveInRight .5s ease-out;
 }
 
 #map {
 	width: 87%;
 	height: 400px;
+	animation: moveInBottom .5s ease-out .75s;
 }

@@ -6,34 +6,34 @@
 	<title>API Capstone</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900">
-	<link rel="stylesheet" type="text/css" href="index.css">
+	<link rel="stylesheet" type="text/css" href="../public/index.css">
 </head>
 <body>
 	<header class="header">
-		<div class="text-box">
+		<div class="header__text-box">
 			<h1 class="heading-primary">
-				<span class="heading-primary-main">App Title</span>
-				<span class="heading-primary-sub">Find great child care near you</span>
+				<span class="heading-primary--main">App Title</span>
+				<span class="heading-primary--sub">Find great child care near you</span>
 			</h1>
-			<a href="#" class="btn btn-white btn-animated">Search</a>
+			<a href="#" class="btn btn--white btn--animated">Search</a>
 		</div>
 	</header>
-	<div>
+	<div class="search-page">
 		<form action="#" class="js-search-form">
 			<label for="query"></label>
 			<input type="text" id="address" class="js-query" placeholder="Please enter address" aria-label="search">
-			<button type="submit">Submit</button>
+			<button class="btn btn--white" type="submit">Submit</button>
 		</form>
+		<div id="map"></div>
 	</div>
-	<div id="map"></div>
 	<div class="sidebar">
 		<div class="show-results">
 			<ul class="results" id="results"></ul>
 		</div>
 	</div>
-	<script src="store.js"></script>
-	<script src="index.js"></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1_0d71jYnnDc9PCGNG7ulYOrhYQVNgQY&q"
+	<script src="../public/store.js"></script>
+	<script src="../public/index.js"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1_0d71jYnnDc9PCGNG7ulYOrhYQVNgQY&q&libraries=places"
   type="text/javascript"></script>	
 </body>
 </html>

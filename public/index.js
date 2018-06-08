@@ -1,4 +1,11 @@
+$('.search-page').hide();
+
 $('.sidebar').hide();
+
+$('.btn').click(event => {
+    $('.header').hide();
+    $('.search-page').show();
+});
 
 $('.js-search-form').submit(event => {
 	event.preventDefault();
@@ -69,9 +76,7 @@ function compileResults() {
         let businessLocation1 = item.location.display_address[0];
         let businessLocation2 = item.location.display_address[1];
         let businessRating = item.rating;
-        let resultString = `
-            <li>${businessName} ${businessLocation1} ${businessLocation2} ${businessRating}</li>
-        `;
+        let resultString = `<li>${businessName} ${businessLocation1} ${businessLocation2} ${businessRating}</li>`;
         $('.sidebar').append(resultString);
     });
 }
