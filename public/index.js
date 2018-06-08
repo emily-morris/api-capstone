@@ -87,8 +87,9 @@ function createMap() {
         document.getElementById('map'), {
             zoom: 11,
             center: {
-            lat: 32.968288,
-            lng: -96.867130
-        };
-    }
-)};
+                lat: 32.968288,
+                lng: -96.867130 
+            }
+        }
+    )   
+};
