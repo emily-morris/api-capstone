@@ -26,7 +26,7 @@ $(() => {
     initMap = function() {
         let userInput = $('.js-query').val();
         let geocoder;
-        let map;
+        const map = createMap();
         function initialize() {
             geocoder = new google.maps.Geocoder();
         }
@@ -51,14 +51,11 @@ $(() => {
         initialize();
         codeAddress();
         compileResults();
-        let home = {
-            lat: 32.968288,
-            lng: -96.867130
-        };
+        
         
         businessArr.forEach(function(item) {
             const { latitude, longtitude } = item.coordinates;
-            updateMarker(latitude, longtitude);
+            updateMarker(latitude, longtitude, map);
         });
     }
 })
@@ -76,11 +73,11 @@ function compileResults() {
 
 //update markers
 //change based on yelp data
-function updateMarker(lat, lng) {
+function updateMarker(lat, lng, map) {
     marker = new google.maps.Marker(
         {
             position: {lat, lng},
-            map: createMap()
+            map
         }
     );
 }
@@ -89,6 +86,9 @@ function createMap() {
     return new google.maps.Map(
         document.getElementById('map'), {
             zoom: 11,
-            center: home
+            center: {
+            lat: 32.968288,
+            lng: -96.867130
+        };
     }
 )};
