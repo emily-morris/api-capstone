@@ -33,7 +33,6 @@ app.get('/', (req, res) => {
   var response = searchYelp(req.query.address, res);
    console.log(res);
    res.sendFile(__dirname + '/views/index.html');
-   res.sendFile(__dirname + '/assets/StockSnap_UNBCSLVVVY.jpg');
   // res.send(searchYelp(req.query.address));
 });
 // listen for requests :)
