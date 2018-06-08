@@ -11,6 +11,7 @@ $('.js-search-form').submit(event => {
 	event.preventDefault();
     $.get("/api-capstone?address="+$('.js-query').val(), function(data) {
         console.log(data);
+
     });
     initMap();
     $('.sidebar').show();
@@ -61,14 +62,8 @@ $(() => {
             }
         );
         businessArr.forEach(function(item) {
-            let businessLat = item.coordinates.latitude;
-            let businessLong = item.coordinates.longitude;
-            marker = new google.maps.Marker(
-                {
-                    position: {lat: businessLat, lng: businessLong},
-                    map: map
-                }
-            );
+            const { latitude, longtitude } = item.coordinates;
+            updateMarker(latitude, longtitude);
         });
     }
 })
@@ -82,4 +77,15 @@ function compileResults() {
         let resultString = `<li>${businessName} ${businessLocation1} ${businessLocation2} ${businessRating}</li>`;
         $('.sidebar').append(resultString);
     });
+}
+
+//update markers
+//change based on yelp data
+function updateMarker(lat, lng) {
+    marker = new google.maps.Marker(
+        {
+            position: {lat, lng},
+            map: map
+        }
+    );
 }
