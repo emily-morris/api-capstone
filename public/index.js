@@ -11,6 +11,7 @@ $('.js-search-form').submit(event => {
 	event.preventDefault();
     $.get("/", function(data) {
         console.log(data);
+        $('.results').html(data);
     });
     initMap();
     $('.sidebar').show();
