@@ -54,8 +54,8 @@ $(() => {
         
         
         businessArr.forEach(function(item) {
-            const { latitude, longtitude } = item.coordinates;
-            updateMarker(latitude, longtitude, map);
+            const { latitude, longitude } = item.coordinates;
+            updateMarker(latitude, longitude, map);
         });
     }
 })
