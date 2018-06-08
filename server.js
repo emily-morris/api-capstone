@@ -26,7 +26,10 @@ function searchYelp(address, res) {
 }
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
-
+app.get('/', (req, res) => {
+  let response = searchYelp(req.query.address, res);
+    res.sendFile(__dirname + '/views/index.html');
+});
 app.get('/api-capstone', (req, res) => {
   let response = searchYelp(req.query.address, res);
    // res.sendFile(__dirname + '/views/index.html');
