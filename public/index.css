@@ -19,7 +19,7 @@ body {
 		to right bottom, 
 		rgba(126, 213, 111, 0.8), 
 		rgba(40, 180, 131, 0.8)), 
-	url('../api-capstone/assets/StockSnap_UNBCSLVVVY.jpg');
+	url(../api-capstone/assets/StockSnap_UNBCSLVVVY.jpg);
 	background-size: cover;
 	background-position: top;
 }
