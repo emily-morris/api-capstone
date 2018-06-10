@@ -10,8 +10,7 @@ $('.btn').click(event => {
 $('.js-search-form').submit(event => {
 	event.preventDefault();
     $.get("/api-capstone?address="+$('.js-query').val(), function(data) {
-        console.log(data);
-
+        console.log(data.coordinates);
     });
     initMap();
     $('.sidebar').show();
@@ -48,10 +47,6 @@ function initMap() {
     initialize();
     codeAddress();
     compileResults();
-    businessArr.forEach(function(item) {
-        const { latitude, longitude } = item.coordinates;
-        updateMarker(latitude, longitude, map);
-    });
 }
 
 function compileResults() {
@@ -63,27 +58,35 @@ function compileResults() {
         let resultString = `<li>${businessName} ${businessLocation1} ${businessLocation2} ${businessRating}</li>`;
         $('.sidebar').append(resultString);
     });
+    console.log(item.coordinates);
 }
+
+
+
 
 //update markers
 //change based on yelp data
-function updateMarker(lat, lng, map) {
-    marker = new google.maps.Marker(
-        {
-            position: {lat, lng},
-            map
-        }
-    );
-}
+// function updateMarker(lat, lng, map) {
+//     marker = new google.maps.Marker(
+//         {
+//             position: {lat, lng},
+//             map
+//         }
+//     );
+// }
 
-function createMap() {
-    return new google.maps.Map(
-        document.getElementById('map'), {
-            zoom: 11,
-            center: {
-                lat: 32.968288,
-                lng: -96.867130 
-            }
-        }
-    )   
-};
+// function createMap() {
+//     return new google.maps.Map(
+//         document.getElementById('map'), {
+//             zoom: 11,
+//             center: {
+//                 lat: 32.968288,
+//                 lng: -96.867130 
+//             }
+//         }
+//     )   
+// };
+
+//user inputs address
+//yelp returns array of 10 results based on address
+//need markers to show up on map at yelp results
