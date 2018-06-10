@@ -20,45 +20,39 @@ $('.js-search-form').submit(event => {
 
 let businessArr = yelpData.businesses;
 
-function initMap() {}
-
-$(() => {
-    initMap = function() {
-        let userInput = $('.js-query').val();
-        let geocoder;
-        const map = createMap();
-        function initialize() {
-            geocoder = new google.maps.Geocoder();
-        }
-        function codeAddress() {
-            let address = $('#address').val();
-            geocoder.geocode(
-                {
-                    'address': address
-                },
-                function(results, status) {
-                    if(status === 'OK') {
-                        map.setCenter(results[0].geometry.location);
-                        let marker = new google.maps.Marker({
-                            map: map,
-                            position: results[0].geometry.location
-                        });
-                    } else {
-                        alert('Please enter a valid address');
-                }
-            });
-        }
-        initialize();
-        codeAddress();
-        compileResults();
-        
-        
-        businessArr.forEach(function(item) {
-            const { latitude, longitude } = item.coordinates;
-            updateMarker(latitude, longitude, map);
+function initMap() {
+    let userInput = $('.js-query').val();
+    let geocoder;
+    const map = createMap();
+    function initialize() {
+        geocoder = new google.maps.Geocoder();
+    }
+    function codeAddress() {
+        let address = $('#address').val();
+        geocoder.geocode(
+            {
+                'address': address
+            },
+            function(results, status) {
+                if(status === 'OK') {
+                    map.setCenter(results[0].geometry.location);
+                    let marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                    alert('Please enter a valid address');
+            }
         });
     }
-})
+    initialize();
+    codeAddress();
+    compileResults();
+    businessArr.forEach(function(item) {
+        const { latitude, longitude } = item.coordinates;
+        updateMarker(latitude, longitude, map);
+    });
+}
 
 function compileResults() {
     businessArr.forEach(function(item) {
