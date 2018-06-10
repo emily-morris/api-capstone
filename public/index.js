@@ -9,84 +9,77 @@ $('.btn').click(event => {
 
 $('.js-search-form').submit(event => {
 	event.preventDefault();
-    $.get("/api-capstone?address="+$('.js-query').val(), function(data) {
-        console.log(data.coordinates);
+    var defaultPath = '';
+    // var localPath = 'https://polar-tundra-83165.herokuapp.com';
+    var localPath = 'http://localhost:3000';
+    $.get(localPath + "/api-capstone?address="+$('.js-query').val(), function(data) {
+        initMap(data);
     });
-    initMap();
     $('.sidebar').show();
-	$('.js-query').val('');
 });
 
-let businessArr = yelpData.businesses;
-
-function initMap() {
-    let userInput = $('.js-query').val();
-    let geocoder;
-    const map = createMap();
-    function initialize() {
-        geocoder = new google.maps.Geocoder();
-    }
-    function codeAddress() {
-        let address = $('#address').val();
-        geocoder.geocode(
-            {
-                'address': address
-            },
-            function(results, status) {
-                if(status === 'OK') {
-                    map.setCenter(results[0].geometry.location);
-                    let marker = new google.maps.Marker({
-                        map: map,
-                        position: results[0].geometry.location
-                    });
-                } else {
-                    alert('Please enter a valid address');
-            }
-        });
-    }
-    initialize();
-    codeAddress();
-    compileResults();
+ function createGeocoder() {
+    return new google.maps.Geocoder();
 }
 
-function compileResults() {
-    businessArr.forEach(function(item) {
-        let businessName = item.name;
-        let businessLocation1 = item.location.display_address[0];
-        let businessLocation2 = item.location.display_address[1];
-        let businessRating = item.rating;
-        let resultString = `<li>${businessName} ${businessLocation1} ${businessLocation2} ${businessRating}</li>`;
-        $('.sidebar').append(resultString);
+function codeAddress(geocoder, map) {
+    let address = $('#address').val();
+    geocoder.geocode(
+        {
+            'address': address
+        },
+        function(results, status) {
+            if(status === 'OK') {
+                map.setCenter(results[0].geometry.location);
+                let marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+            } else {
+                alert('Please enter a valid address');
+        }
     });
-    console.log(item.coordinates);
 }
 
+function initMap(yelpResults) {
+    let userInput = $('.js-query').val();
+    let geocoder = createGeocoder();
+    const map = createMap();
+    codeAddress(geocoder, map);
+    compileResults(yelpResults, map);
+}
 
+function compileResults(yelpResults, map) {
+    $('.results').empty();
+    yelpResults.forEach(function(item) {
+        let businessName = item.name;
+        let businessLoc1 = item.location.display_address[0];
+        let businessLoc2 = item.location.display_address[1];
+        let businessRating = item.rating;
+        let resultString = `<li>${businessName} ${businessLoc1} ${businessLoc2} ${businessRating}</li>`;
+        $('.results').append(resultString);
+        updateMarker(item.coordinates.latitude, item.coordinates.longitude, map);
+        $('.js-query').val('');
+    });
+}
 
+function updateMarker(lat, lng, map) {
+    return new google.maps.Marker(
+        {
+            position: {lat, lng},
+            map
+        }
+    );
+}
 
-//update markers
-//change based on yelp data
-// function updateMarker(lat, lng, map) {
-//     marker = new google.maps.Marker(
-//         {
-//             position: {lat, lng},
-//             map
-//         }
-//     );
-// }
-
-// function createMap() {
-//     return new google.maps.Map(
-//         document.getElementById('map'), {
-//             zoom: 11,
-//             center: {
-//                 lat: 32.968288,
-//                 lng: -96.867130 
-//             }
-//         }
-//     )   
-// };
-
-//user inputs address
-//yelp returns array of 10 results based on address
-//need markers to show up on map at yelp results
+function createMap(lat, lng) {
+    return new google.maps.Map(
+        document.getElementById('map'), {
+            zoom: 11,
+            center: {
+                lat: 32.968288,
+                lng: -96.867130 
+            }
+        }
+    )   
+}

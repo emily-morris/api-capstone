@@ -6,7 +6,9 @@ const express = require('express');
 const app = express();
 const yelp = require('yelp-fusion');
 const apiKey = 'NBivNTuADzZxyu1I7Unf0QUQmPx4O5kFGp-ts88mrAotHHmEuzn46TgXVNzwvVjPeC_4Wm4Tn7qSluT-k4-nJV0WzLFTaDc1W7bPLgJl0euIseVGP0mG0lxCllQRW3Yx';
+var morgan = require('morgan')
 
+app.use(morgan('combined'))
 function searchYelp(address, res) {
   const searchRequest = {
     location: address,
@@ -36,11 +38,12 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
 });
 app.get('/api-capstone', (req, res) => {
+  console.log('hi');
   let response = searchYelp(req.query.address, res);
 
    // res.sendFile(__dirname + '/views/index.html');
 });
 // listen for requests :)
-let listener = app.listen(process.env.PORT, function () {
+let listener = app.listen(3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
