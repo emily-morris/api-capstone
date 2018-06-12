@@ -12,8 +12,8 @@ $('.js-search-form').submit(event => {
 	event.preventDefault();
     var defaultPath = '';
     // var localPath = 'https://polar-tundra-83165.herokuapp.com';
-    var localPath = 'http://localhost:3000';
-    $.get(localPath + "/api-capstone?address="+$('.js-query').val(), function(data) {
+    // var localPath = 'http://localhost:3000';
+    $.get(defaultPath + "/api-capstone?address="+$('.js-query').val(), function(data) {
         initMap(data);
     });
     $('.search-page').hide();

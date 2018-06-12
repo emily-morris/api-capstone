@@ -5,7 +5,7 @@
 }
 
 body {
-	font-family: "Lato", sans-serif;
+	font-family: 'Karla', sans-serif;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 1.7;
@@ -20,7 +20,7 @@ body {
 		to right bottom, 
 		rgba(72, 105, 137, 0.6), 
 		rgba(72, 144, 156, 0.6)), 
-	url(../public/assets/StockSnap_UNBCSLVVVY.jpg);
+	url(/assets/StockSnap_UNBCSLVVVY.jpg);
 	background-size: cover;
 	background-position: top;
 }
