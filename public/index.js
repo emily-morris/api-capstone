@@ -13,7 +13,7 @@ $('.js-search-form').submit(event => {
     var defaultPath = '';
     // var localPath = 'https://polar-tundra-83165.herokuapp.com';
     // var localPath = 'http://localhost:3000';
-    $.get(defaultPath + "/api-capstone?address="+$('.js-query').val(), function(data) {
+    $.get("/api-capstone?address="+$('.js-query').val(), function(data) {
         initMap(data);
     });
     $('.search-page').hide();
