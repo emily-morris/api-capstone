@@ -1,9 +1,10 @@
 $('.search-page').hide();
-
+$('.results-page').hide();
 $('.sidebar').hide();
+$('#map').hide();
 
 $('.btn').click(event => {
-    $('.header').hide();
+    $('.landing-page').hide();
     $('.search-page').show();
 });
 
@@ -15,8 +16,22 @@ $('.js-search-form').submit(event => {
     $.get(localPath + "/api-capstone?address="+$('.js-query').val(), function(data) {
         initMap(data);
     });
+    $('.search-page').hide();
+    $('.results-page').show();
     $('.sidebar').show();
+    $('#map').show();
 });
+
+function newSearch() {
+    $('.new-search').click(event => {
+        $('.search-page').show();
+        $('.results-page').hide();
+        $('.sidebar').hide();
+        $('#map').hide();
+    });
+}
+
+newSearch();
 
  function createGeocoder() {
     return new google.maps.Geocoder();
@@ -56,20 +71,26 @@ function compileResults(yelpResults, map) {
         let businessLoc1 = item.location.display_address[0];
         let businessLoc2 = item.location.display_address[1];
         let businessRating = item.rating;
-        let resultString = `<li>${businessName} ${businessLoc1} ${businessLoc2} ${businessRating}</li>`;
+        let resultString = `<li>${businessName}<br/> <em>Address:</em> ${businessLoc1} ${businessLoc2}<br/> <em>Rating:</em> ${businessRating}</li>`;
         $('.results').append(resultString);
         updateMarker(item.coordinates.latitude, item.coordinates.longitude, map);
+        const infoWindow = new google.maps.InfoWindow();
+        google.maps.event.addListener(marker, 'click', () => {
+            infoWindow.setContent(resultString);
+            infoWindow.open(map, marker);
+        })
         $('.js-query').val('');
     });
 }
 
 function updateMarker(lat, lng, map) {
-    return new google.maps.Marker(
+   marker = new google.maps.Marker(
         {
             position: {lat, lng},
             map
         }
     );
+  
 }
 
 function createMap(lat, lng) {
