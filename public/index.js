@@ -12,8 +12,8 @@ $('.js-search-form').submit(event => {
 	event.preventDefault();
     var defaultPath = '';
     // var localPath = 'https://polar-tundra-83165.herokuapp.com';
-    // var localPath = 'http://localhost:3000';
-    $.get("/api-capstone?address="+$('.js-query').val(), function(data) {
+    var localPath = 'http://localhost:3000';
+    $.get(localPath + "/api-capstone?address="+$('.js-query').val(), function(data) {
         initMap(data);
     });
     $('.search-page').hide();
@@ -71,14 +71,44 @@ function compileResults(yelpResults, map) {
         let businessLoc1 = item.location.display_address[0];
         let businessLoc2 = item.location.display_address[1];
         let businessRating = item.rating;
-        let resultString = `<li>${businessName}<br/> <em>Address:</em> ${businessLoc1} ${businessLoc2}<br/> <em>Rating:</em> ${businessRating}</li>`;
+        let resultString = `<li><strong>${businessName}</strong><br/> <em>Address:</em> ${businessLoc1} ${businessLoc2}<br/> <em>Rating:</em> ${businessRating}</li>`;
+        console.log(resultString);
         $('.results').append(resultString);
         updateMarker(item.coordinates.latitude, item.coordinates.longitude, map);
-        const infoWindow = new google.maps.InfoWindow();
-        google.maps.event.addListener(marker, 'click', () => {
-            infoWindow.setContent(resultString);
-            infoWindow.open(map, marker);
-        })
+        let markers = [];
+
+        function getInfo() {
+            let numMarkers = yelpResults.length;
+            console.log(yelpResults);
+            for(let i = 0; i < numMarkers; i++) {
+                markers[i] = new google.maps.Marker({
+                    position: {lat:yelpResults[i].coordinates.latitude, lng:yelpResults[i].coordinates.longitude},
+                    map: map,
+                    html: yelpResults[i].name,
+                    id: i
+                });
+                
+                google.maps.event.addListener(markers[i], 'click', function() {
+                    let infoWindow = new google.maps.InfoWindow({
+                        id: this.id,
+                        content: this.html,
+                        position: this.getPosition()
+                    });
+                    google.maps.event.addListenerOnce(infoWindow, 'closeclick', function() {
+                        markers[this.id].setVisible(true);
+                    });
+                    this.setVisible(false);
+                    infoWindow.open(map);
+                });
+            }
+        }
+        getInfo();
+        // const infoWindow = new google.maps.InfoWindow();
+        // google.maps.event.addListener(marker, 'click', () => {
+        //     console.log(marker);
+        //     infoWindow.setContent(resultString);
+        //     infoWindow.open(map, marker);
+        // })
         $('.js-query').val('');
     });
 }
@@ -90,7 +120,6 @@ function updateMarker(lat, lng, map) {
             map
         }
     );
-  
 }
 
 function createMap(lat, lng) {

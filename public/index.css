@@ -20,7 +20,7 @@ body {
 		to right bottom, 
 		rgba(72, 105, 137, 0.6), 
 		rgba(72, 144, 156, 0.6)), 
-	url(/assets/StockSnap_UNBCSLVVVY.jpg);
+	url(../public/assets/StockSnap_UNBCSLVVVY.jpg);
 	background-size: cover;
 	background-position: top;
 }
@@ -171,11 +171,15 @@ body {
 #map {
 	width: 87%;
 	height: 400px;
-	animation: moveInBottom .5s ease-out .75s;
+	animation: moveInRight .5s ease-out;
 }
 
 .js-search-form {
 	display: flex;
 	justify-content: center;
 	padding-top: 500px;
+}
+
+.new-search {
+	margin-top: 20px;
 }
