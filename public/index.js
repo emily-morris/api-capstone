@@ -8,6 +8,8 @@ $('.btn').click(event => {
     $('.search-page').show();
 });
 
+var homeLoc;
+
 $('.js-search-form').submit(event => {
 	event.preventDefault();
     var defaultPath = '';
@@ -37,7 +39,7 @@ newSearch();
     return new google.maps.Geocoder();
 }
 
-function codeAddress(geocoder, map) {
+function codeAddress(geocoder, map, yelpResults) {
     let address = $('#address').val();
     geocoder.geocode(
         {
@@ -45,6 +47,7 @@ function codeAddress(geocoder, map) {
         },
         function(results, status) {
             if(status === 'OK') {
+                homeLoc = results[0].geometry.location;
                 map.setCenter(results[0].geometry.location);
                 let marker = new google.maps.Marker({
                     map: map,
@@ -52,19 +55,21 @@ function codeAddress(geocoder, map) {
                 });
             } else {
                 alert('Please enter a valid address');
+            }
+            compileResults(yelpResults, map, results[0].geometry.location);
         }
-    });
+    );
 }
+
 
 function initMap(yelpResults) {
     let userInput = $('.js-query').val();
     let geocoder = createGeocoder();
     const map = createMap();
-    codeAddress(geocoder, map);
-    compileResults(yelpResults, map);
+    codeAddress(geocoder, map, yelpResults);   
 }
 
-function compileResults(yelpResults, map) {
+function compileResults(yelpResults, map, homeLoc) {
     $('.results').empty();
     yelpResults.forEach(function(item) {
         let businessName = item.name;
@@ -72,15 +77,21 @@ function compileResults(yelpResults, map) {
         let businessLoc2 = item.location.display_address[1];
         let businessRating = item.rating;
         let resultString = `<li><strong>${businessName}</strong><br/> <em>Address:</em> ${businessLoc1} ${businessLoc2}<br/> <em>Rating:</em> ${businessRating}</li>`;
-        console.log(resultString);
+        
         $('.results').append(resultString);
+        
         updateMarker(item.coordinates.latitude, item.coordinates.longitude, map);
+        
         let markers = [];
+        let directionsService;
+        let directionsDisplay;
 
         function getInfo() {
+
             let numMarkers = yelpResults.length;
             console.log(yelpResults);
             for(let i = 0; i < numMarkers; i++) {
+                
                 markers[i] = new google.maps.Marker({
                     position: {lat:yelpResults[i].coordinates.latitude, lng:yelpResults[i].coordinates.longitude},
                     map: map,
@@ -91,7 +102,7 @@ function compileResults(yelpResults, map) {
                 google.maps.event.addListener(markers[i], 'click', function() {
                     let infoWindow = new google.maps.InfoWindow({
                         id: this.id,
-                        content: this.html,
+                        content: this.html + '<br/>' + '<input type="button" onClick="getDir(' + yelpResults[i].coordinates.latitude + ',' + yelpResults[i].coordinates.longitude + ')" value="Go!">',
                         position: this.getPosition()
                     });
                     google.maps.event.addListenerOnce(infoWindow, 'closeclick', function() {
@@ -100,17 +111,24 @@ function compileResults(yelpResults, map) {
                     this.setVisible(false);
                     infoWindow.open(map);
                 });
+                geocoder = new google.maps.Geocoder();
+                directionsService = new google.maps.DirectionsService();
+                directionsDisplay = new google.maps.DirectionsRenderer({
+                    suppressMarkers: false
+                });
+                directionsDisplay.setMap(map);
+                directionsDisplay.setPanel(document.getElementById("directions-panel"));
             }
         }
         getInfo();
-        // const infoWindow = new google.maps.InfoWindow();
-        // google.maps.event.addListener(marker, 'click', () => {
-        //     console.log(marker);
-        //     infoWindow.setContent(resultString);
-        //     infoWindow.open(map, marker);
-        // })
+
         $('.js-query').val('');
     });
+}
+
+ function getDir(resultLat, resultLng) {
+
+    console.log(homeLoc);
 }
 
 function updateMarker(lat, lng, map) {
