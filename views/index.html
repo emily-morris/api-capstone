@@ -16,6 +16,10 @@
 					<span class="heading-primary--main">Close To Home</span>
 					<span class="heading-primary--sub">Find child care near you</span>
 				</h1>
+				<form action="#" class="js-search-form">
+					<label for="query"></label>
+					<input type="text" id="address" class="js-query" placeholder="Enter starting address, city/state, or zip" aria-label="search" required>
+				</form>
 				<a href="#" class="btn btn--white btn--animated">Search</a>
 			</div>
 		</header>
@@ -25,19 +29,19 @@
 			<div class="header__text-box">
 				<h1 class="heading-primary">
 					<span class="heading-primary--main">Enter address</span>
-					<span class="heading-primary--sub">(Including city and state)</span>
+					<!-- <span class="heading-primary--sub">(Including city and state)</span> -->
 				</h1>
 			</div>
 		</header>
-		<form action="#" class="js-search-form">
+		<!-- <form action="#" class="js-search-form">
 			<label for="query"></label>
 			<input type="text" id="address" class="js-query" placeholder="Address, city/state" aria-label="search" required>
 			<button type="submit">Submit</button>
-		</form>
+		</form> -->
 	</section>
 	<section class="results-page">
 		<div class="sidebar">
-			<div class="show-results">
+			<div class="show-results" id="show-results">
 				<ul class="results" id="results"></ul>
 			</div>
 		</div>

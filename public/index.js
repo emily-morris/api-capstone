@@ -1,28 +1,42 @@
-$('.search-page').hide();
-$('.results-page').hide();
-$('.sidebar').hide();
-$('#map').hide();
-
-$('.btn').click(event => {
-    $('.landing-page').hide();
-    $('.search-page').show();
-});
-
-var homeLoc;
-
-$('.js-search-form').submit(event => {
-	event.preventDefault();
-    var defaultPath = '';
-    // var localPath = 'https://polar-tundra-83165.herokuapp.com';
-    var localPath = 'http://localhost:3000';
-    $.get(localPath + "/api-capstone?address="+$('.js-query').val(), function(data) {
-        initMap(data);
-    });
+function loadPage() {
     $('.search-page').hide();
-    $('.results-page').show();
-    $('.sidebar').show();
-    $('#map').show();
-});
+    $('.results-page').hide();
+    $('.sidebar').hide();
+    $('#map').hide();
+}
+
+loadPage();
+
+function getSearch() {
+    $('.btn').click(event => {
+        $('.landing-page').hide();
+        $('.search-page').show();
+    });
+}
+
+getSearch();
+
+let homeLoc;
+let directionsService;
+let directionsDisplay;
+
+function doSearch() {
+    $('.js-search-form').submit(event => {
+    	event.preventDefault();
+        var defaultPath = '';
+        // var localPath = 'https://polar-tundra-83165.herokuapp.com';
+        var localPath = 'http://localhost:3000';
+        $.get(localPath + "/api-capstone?address=" + $('.js-query').val(), function(data) {
+            initMap(data);
+        });
+        $('.search-page').hide();
+        $('.results-page').show();
+        $('.sidebar').show();
+        $('#map').show();
+    });
+}
+
+doSearch();
 
 function newSearch() {
     $('.new-search').click(event => {
@@ -48,6 +62,7 @@ function codeAddress(geocoder, map, yelpResults) {
         function(results, status) {
             if(status === 'OK') {
                 homeLoc = results[0].geometry.location;
+                console.log(results[0].geometry.location);
                 map.setCenter(results[0].geometry.location);
                 let marker = new google.maps.Marker({
                     map: map,
@@ -83,26 +98,25 @@ function compileResults(yelpResults, map, homeLoc) {
         updateMarker(item.coordinates.latitude, item.coordinates.longitude, map);
         
         let markers = [];
-        let directionsService;
-        let directionsDisplay;
-
+     
         function getInfo() {
 
             let numMarkers = yelpResults.length;
             console.log(yelpResults);
             for(let i = 0; i < numMarkers; i++) {
-                
+                console.log(yelpResults[i].location);
                 markers[i] = new google.maps.Marker({
                     position: {lat:yelpResults[i].coordinates.latitude, lng:yelpResults[i].coordinates.longitude},
                     map: map,
-                    html: yelpResults[i].name,
+                    html: yelpResults[i].name + '<br/>' + yelpResults[i].location.address1,
                     id: i
                 });
                 
                 google.maps.event.addListener(markers[i], 'click', function() {
+                    console.log(this);
                     let infoWindow = new google.maps.InfoWindow({
                         id: this.id,
-                        content: this.html + '<br/>' + '<input type="button" onClick="getDir(' + yelpResults[i].coordinates.latitude + ',' + yelpResults[i].coordinates.longitude + ')" value="Go!">',
+                        content: this.html + '<br/>' + '<input type="button" onClick="getDir(' + yelpResults[i].coordinates.latitude + ',' + yelpResults[i].coordinates.longitude + ')" value="Get directions">',
                         position: this.getPosition()
                     });
                     google.maps.event.addListenerOnce(infoWindow, 'closeclick', function() {
@@ -117,7 +131,7 @@ function compileResults(yelpResults, map, homeLoc) {
                     suppressMarkers: false
                 });
                 directionsDisplay.setMap(map);
-                directionsDisplay.setPanel(document.getElementById("directions-panel"));
+                directionsDisplay.setPanel(document.getElementById("show-results"));
             }
         }
         getInfo();
@@ -126,9 +140,21 @@ function compileResults(yelpResults, map, homeLoc) {
     });
 }
 
- function getDir(resultLat, resultLng) {
-
+function getDir(resultLat, resultLng) {
     console.log(homeLoc);
+    let destination = new google.maps.LatLng(resultLat, resultLng);
+    let request = {
+        origin: homeLoc,
+        destination: destination,
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
+    };
+
+    directionsService.route(request, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            $('.show-results').empty();
+            directionsDisplay.setDirections(response);
+        } 
+    });
 }
 
 function updateMarker(lat, lng, map) {
