@@ -1,5 +1,4 @@
 function loadPage() {
-    $('.search-page').hide();
     $('.results-page').hide();
     $('.sidebar').hide();
     $('#map').hide();
@@ -8,9 +7,9 @@ function loadPage() {
 loadPage();
 
 function getSearch() {
-    $('.btn').click(event => {
+    $('button').click(event => {
         $('.landing-page').hide();
-        $('.search-page').show();
+        $('.results-page').show();
     });
 }
 
@@ -29,10 +28,12 @@ function doSearch() {
         $.get(localPath + "/api-capstone?address=" + $('.js-query').val(), function(data) {
             initMap(data);
         });
-        $('.search-page').hide();
         $('.results-page').show();
-        $('.sidebar').show();
         $('#map').show();
+        console.log($(document).width());
+        if($(document).width() > 415) {
+            $('.sidebar').show();
+        }
     });
 }
 
@@ -40,10 +41,11 @@ doSearch();
 
 function newSearch() {
     $('.new-search').click(event => {
-        $('.search-page').show();
+        $('.landing-page').show();
         $('.results-page').hide();
         $('.sidebar').hide();
         $('#map').hide();
+        location.reload();
     });
 }
 

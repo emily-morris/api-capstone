@@ -10,36 +10,21 @@
 </head>
 <body>
 	<section class="landing-page">
-		<header class="header">
+		<header class="header" role="main">
 			<div class="header__text-box">
 				<h1 class="heading-primary">
 					<span class="heading-primary--main">Close To Home</span>
-					<span class="heading-primary--sub">Find child care near you</span>
+					<span class="heading-primary--sub">Find great child care near you</span>
 				</h1>
 				<form action="#" class="js-search-form">
 					<label for="query"></label>
-					<input type="text" id="address" class="js-query" placeholder="Enter starting address, city/state, or zip" aria-label="search" required>
+					<input type="text" id="address" class="js-query" placeholder="Enter address or zip" aria-label="search" required>
+					<button type="submit">Search</button>
 				</form>
-				<a href="#" class="btn btn--white btn--animated">Search</a>
 			</div>
 		</header>
 	</section>
-	<section class="search-page">
-		<header class="header">
-			<div class="header__text-box">
-				<h1 class="heading-primary">
-					<span class="heading-primary--main">Enter address</span>
-					<!-- <span class="heading-primary--sub">(Including city and state)</span> -->
-				</h1>
-			</div>
-		</header>
-		<!-- <form action="#" class="js-search-form">
-			<label for="query"></label>
-			<input type="text" id="address" class="js-query" placeholder="Address, city/state" aria-label="search" required>
-			<button type="submit">Submit</button>
-		</form> -->
-	</section>
-	<section class="results-page">
+	<section class="results-page" role="complementary">
 		<div class="sidebar">
 			<div class="show-results" id="show-results">
 				<ul class="results" id="results"></ul>
@@ -47,7 +32,9 @@
 		</div>
 		<div id="map"></div>
 		<div id="directions-panel"></div>
-		<a href="#" class="btn btn--white btn--animated new-search">Start new search</a>
+		<div class="new-search">
+			<a href="#" class="btn btn--white btn--animated new-search">Start new search</a>
+		</div>
 	</section>
 	<script src="../public/index.js"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1_0d71jYnnDc9PCGNG7ulYOrhYQVNgQY&q"
