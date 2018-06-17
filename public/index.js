@@ -1,3 +1,7 @@
+let homeLoc;
+let directionsService;
+let directionsDisplay;
+
 function loadPage() {
     $('.results-page').hide();
     $('.sidebar').hide();
@@ -15,24 +19,22 @@ function getSearch() {
 
 getSearch();
 
-let homeLoc;
-let directionsService;
-let directionsDisplay;
-
 function doSearch() {
     $('.js-search-form').submit(event => {
     	event.preventDefault();
         var defaultPath = '';
         // var localPath = 'https://polar-tundra-83165.herokuapp.com';
         var localPath = 'http://localhost:3000';
-        $.get(localPath + "/api-capstone?address=" + $('.js-query').val(), function(data) {
+        $.get(localPath + '/api-capstone?address=' + $('.js-query').val(), function(data) {
             initMap(data);
         });
         $('.results-page').show();
         $('#map').show();
         console.log($(document).width());
-        if($(document).width() > 415) {
+        if($(document).width() > 767) {
             $('.sidebar').show();
+            $('.show-bar').hide();
+            $('.close-bar').hide();
         }
     });
 }
@@ -40,7 +42,7 @@ function doSearch() {
 doSearch();
 
 function newSearch() {
-    $('.new-search').click(event => {
+    $('.new-search-btn').click(event => {
         $('.landing-page').show();
         $('.results-page').hide();
         $('.sidebar').hide();
@@ -50,6 +52,29 @@ function newSearch() {
 }
 
 newSearch();
+
+function showSidebar() {
+    $('.show-bar').click(event => {
+        console.log('click');
+        // $('.btn').hide();
+        $('.sidebar').show();
+        $('.show-bar').show();
+        $('.close-bar').show();
+    });
+}
+
+showSidebar();
+
+function hideSidebar() {
+    if($(document).width() < 767) {
+        $('.close-bar').click(event => {
+            console.log('click');
+            $('.sidebar').hide();
+        });
+    }
+} 
+
+hideSidebar();
 
  function createGeocoder() {
     return new google.maps.Geocoder();
@@ -78,7 +103,6 @@ function codeAddress(geocoder, map, yelpResults) {
     );
 }
 
-
 function initMap(yelpResults) {
     let userInput = $('.js-query').val();
     let geocoder = createGeocoder();
@@ -102,7 +126,6 @@ function compileResults(yelpResults, map, homeLoc) {
         let markers = [];
      
         function getInfo() {
-
             let numMarkers = yelpResults.length;
             console.log(yelpResults);
             for(let i = 0; i < numMarkers; i++) {
@@ -118,7 +141,7 @@ function compileResults(yelpResults, map, homeLoc) {
                     console.log(this);
                     let infoWindow = new google.maps.InfoWindow({
                         id: this.id,
-                        content: this.html + '<br/>' + '<input type="button" onClick="getDir(' + yelpResults[i].coordinates.latitude + ',' + yelpResults[i].coordinates.longitude + ')" value="Get directions">',
+                        content: this.html + '<br/>' + '<input type="button" onClick="getDir(' + yelpResults[i].coordinates.latitude + ',' + yelpResults[i].coordinates.longitude + ')" value="Click for route, sidebar for directions">',
                         position: this.getPosition()
                     });
                     google.maps.event.addListenerOnce(infoWindow, 'closeclick', function() {
@@ -133,24 +156,21 @@ function compileResults(yelpResults, map, homeLoc) {
                     suppressMarkers: false
                 });
                 directionsDisplay.setMap(map);
-                directionsDisplay.setPanel(document.getElementById("show-results"));
+                directionsDisplay.setPanel(document.getElementById('show-results'));
             }
         }
         getInfo();
-
         $('.js-query').val('');
     });
 }
 
 function getDir(resultLat, resultLng) {
-    console.log(homeLoc);
     let destination = new google.maps.LatLng(resultLat, resultLng);
     let request = {
         origin: homeLoc,
         destination: destination,
         travelMode: google.maps.DirectionsTravelMode.DRIVING
     };
-
     directionsService.route(request, function (response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             $('.show-results').empty();
