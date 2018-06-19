@@ -6,40 +6,40 @@
 	<title>API Capstone</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../public/normalize.css">
 	<link rel="stylesheet" type="text/css" href="../public/index.css">
 </head>
 <body>
-	<section class="landing-page">
-		<header class="header" role="main">
+	<section role="search" class="landing-page">
+		<header class="header">
 			<div class="header__text-box">
 				<h1 class="heading-primary">
 					<span class="heading-primary--main">Close To Home</span>
 					<span class="heading-primary--sub">Find great child care near you</span>
 				</h1>
 				<form action="#" class="js-search-form">
-					<label for="query"></label>
-					<input type="text" id="address" class="js-query" placeholder="Enter address or zip" aria-label="search" required>
-					<button type="submit">Search</button>
+					<input name="q" type="search" id="address" class="js-query" placeholder="Enter address or zip" required>
+					<input type="submit" role="button" value="Search">
 				</form>
 			</div>
 		</header>
 	</section>
-	<section class="results-page" role="complementary">
-		<div class="sidebar">
+	<div class="results-page" aria-live="polite">
+		<aside class="sidebar" >
 			<div class="show-results" id="show-results">
-				<ul class="results" id="results"></ul>
+				<section class="results-container">
+					<ul class="results" id="results"></ul>
+				</section>
 			</div>
 			<button type="button" class="close-bar btn">Close</button>
-		</div>
+		</aside>
 		<div id="map"></div>
-		<div id="directions-panel"></div>
-		<div class="new-search">
-			<a href="#" class="btn btn--white btn--animated new-search-btn">Start new search</a>
-			<a href="#" class="show-bar btn btn--white btn--animated">Show sidebar</a>
-		</div>
-	</section>
+		<nav class="new-search">
+			<a href="#" role="button" class="btn btn--white btn--animated new-search-btn">Start new search</a>
+			<a href="#" role="button" class="show-bar btn btn--white btn--animated">Show sidebar</a>
+		</nav>
+	</div>
 	<script src="../public/index.js"></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1_0d71jYnnDc9PCGNG7ulYOrhYQVNgQY&q"
-  type="text/javascript"></script>	
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1_0d71jYnnDc9PCGNG7ulYOrhYQVNgQY&q"></script>	
 </body>
 </html>
