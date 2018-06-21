@@ -262,7 +262,7 @@ button {
 }
 
 /*smaller than iPhone screen*/
-/*@media only screen and (min-width: 200px) and (max-width: 319px) {
+@media only screen and (min-width: 200px) and (max-width: 319px) {
 	form {
 		display: inline-block;
 	}
@@ -272,7 +272,7 @@ button {
 		margin-top: 20px;
 	}
 }
-*/
+
 /*mobile*/
 @media only screen and (max-width: 600px)  {
 	.landing-page,
