@@ -273,7 +273,7 @@ button {
 	}
 }
 */
-/*extra small screens*/
+/*mobile*/
 @media only screen and (max-width: 600px)  {
 	.landing-page,
 	.results-page {
