@@ -8,7 +8,7 @@ $('.sidebar').hide();
 $('#map').hide();
 
 $('.js-search-form').submit(event => {
-	event.preventDefault();
+    event.preventDefault();
     var defaultPath = '';
     // var localPath = 'https://polar-tundra-83165.herokuapp.com';
     var localPath = 'http://localhost:3000';
@@ -17,13 +17,9 @@ $('.js-search-form').submit(event => {
         initMap(data);
     });
    $('.landing-page').hide();
-$('.results-page').show();
-$('#map').show();
-// if($(document).width() > 767) {
-//   $('.sidebar').show();
-//   $('.show-bar').hide();
-//   $('.close-bar').hide();
-// }
+   $('.results-page').show();
+   $('#map').show();
+   $('.sidebar').show();
 });
 
 $('.new-search-btn').click(event => {
@@ -34,24 +30,11 @@ $('.new-search-btn').click(event => {
   location.reload();
 });
 
-
-$('.show-bar').click(event => {
-  $('.sidebar').show();
-  $('.close-bar').show();
-});
-
-$('.close-bar').click(event => {
-    $('.sidebar').hide();
-    $('#map').show();
-});
-
 $('.results-btn').click(event => {
     console.log(yelpData);
-    $('.results').empty();
+    $('.sidebar').show();
     $('.show-results').empty();
-    yelpData.forEach(function(item) {
-        populateSidebar(item);
-    });
+    $('.results').show();
 });
 
 //convert user input to latitude/longitude
@@ -130,12 +113,12 @@ function getDir(resultLat, resultLng) {
 
 //set up list of results
 function compileResults(yelpResults, map, homeLoc) {
-  //$('.results').empty();
   yelpResults.forEach(function(item) {
       populateSidebar(item);
       updateMarker(item.coordinates.latitude, item.coordinates.longitude, map);
 
       let markers = [];
+
       //create info windows when clicking on markers
       function getInfo() {
           let numMarkers = yelpResults.length;
@@ -150,7 +133,7 @@ function compileResults(yelpResults, map, homeLoc) {
               google.maps.event.addListener(markers[i], 'click', function() {
                   let infoWindow = new google.maps.InfoWindow({
                       id: this.id,
-                      content: this.html + '<br/>' + '<input type="button" onClick="getDir(' + yelpResults[i].coordinates.latitude + ',' + yelpResults[i].coordinates.longitude + ')" value="Get route, see sidebar for directions">',
+                      content: this.html + '<br/>' + '<input type="button" onClick="getDir(' + yelpResults[i].coordinates.latitude + ',' + yelpResults[i].coordinates.longitude + ')" value="Get directions">',
                       position: this.getPosition()
                   });
                   google.maps.event.addListenerOnce(infoWindow, 'closeclick', function() {
@@ -180,6 +163,5 @@ function populateSidebar(item) {
     let businessLoc2 = item.location.display_address[1];
     let businessRating = item.rating;
     let resultString = `<li><strong>${businessName}</strong><br/> <em>Address:</em> ${businessLoc1} ${businessLoc2}<br/> <em>Rating:</em> ${businessRating}</li>`;
-
     $('.results').append(resultString);
 }

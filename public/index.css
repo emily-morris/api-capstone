@@ -1,7 +1,3 @@
-* {
-/*	box-sizing: border-box;*/
-}
-
 html {
 	background: url(../public/assets/StockSnap_UNBCSLVVVY.jpg) no-repeat center center fixed;
 	-webkit-background-size: cover;
@@ -80,19 +76,6 @@ input:focus::-moz-placeholder {
     overflow: auto;
     animation: moveInRight .5s ease-out;
     color: #004055;
-    /*display: flex;
-    justify-content: center;*/
-}
-
-.show-results,
-.adp {
-	position: relative;
-	overflow: hidden;
-}
-
-.close-bar {
-  display: block;
-  margin: 0 auto;
 }
 
 .btn:link,
@@ -205,6 +188,7 @@ input:focus::-moz-placeholder {
 	#map,
 	.sidebar {
 		height: 85vh;
+		width: 50%;
 	}
 
 	.new-search {
@@ -216,18 +200,13 @@ input:focus::-moz-placeholder {
 
 	.new-search-btn {
 		margin-right: 10px;
-		padding: 0 3px;
-		font-size: 1em;
-	}
-
-	.show-bar {
-		padding: 0 3px;
+		padding: 0 10px;
 		font-size: 1em;
 	}
 
 	.results-btn {
 		margin-left: 10px;
-		padding: 0 3px;
+		padding: 0 10px;
 		font-size: 1em;
 	}
 }
@@ -281,10 +260,6 @@ input:focus::-moz-placeholder {
 	.sidebar {
 		height: 90vh;
 	}
-
-	/*.new-search {
-		background-color: red;
-	}*/
 }
 
 @media only screen and (min-width: 810px) and (max-width: 900px) {
