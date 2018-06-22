@@ -3,10 +3,12 @@ let directionsService;
 let directionsDisplay;
 let yelpData;
 
+//load homepage
 $('.results-page').hide();
 $('.sidebar').hide();
 $('#map').hide();
 
+//user submits search
 $('.js-search-form').submit(event => {
     event.preventDefault();
     var defaultPath = '';
@@ -22,6 +24,14 @@ $('.js-search-form').submit(event => {
    $('.sidebar').show();
 });
 
+//view list of search results
+$('.results-btn').click(event => {
+    $('.sidebar').show();
+    $('.show-results').empty();
+    $('.results').show();
+});
+
+//back to homepage for new search
 $('.new-search-btn').click(event => {
   $('.landing-page').show();
   $('.results-page').hide();
@@ -30,18 +40,10 @@ $('.new-search-btn').click(event => {
   location.reload();
 });
 
-$('.results-btn').click(event => {
-    console.log(yelpData);
-    $('.sidebar').show();
-    $('.show-results').empty();
-    $('.results').show();
-});
-
 //convert user input to latitude/longitude
 function createGeocoder() {
   return new google.maps.Geocoder();
 }
-
 function codeAddress(geocoder, map, yelpResults) {
   let address = $('#address').val();
   geocoder.geocode(
@@ -76,7 +78,6 @@ function createMap(lat, lng) {
       }
   )   
 }
-
 function initMap(yelpResults) {
   let userInput = $('.js-query').val();
   let geocoder = createGeocoder();
@@ -156,6 +157,7 @@ function compileResults(yelpResults, map, homeLoc) {
   });
 }
 
+//show search results on sidebar
 function populateSidebar(item) {
     console.log(item);
     let businessName = item.name;
