@@ -159,11 +159,12 @@ function compileResults(yelpResults, map, homeLoc) {
 
 //show search results on sidebar
 function populateSidebar(item) {
-    console.log(item);
+    console.log(item.url);
     let businessName = item.name;
     let businessLoc1 = item.location.display_address[0];
     let businessLoc2 = item.location.display_address[1];
     let businessRating = item.rating;
-    let resultString = `<li><strong>${businessName}</strong><br/> <em>Address:</em> ${businessLoc1} ${businessLoc2}<br/> <em>Rating:</em> ${businessRating}</li>`;
+    let businessUrl = item.url;
+    let resultString = `<li><strong>${businessName}</strong><br/> <em>Address:</em> ${businessLoc1} ${businessLoc2}<br/> <em>Rating:</em> ${businessRating}<br/> <a href=${businessUrl}>See reviews</a></li>`;
     $('.results').append(resultString);
 }
