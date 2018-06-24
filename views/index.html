@@ -27,20 +27,20 @@
 			</div>
 		</header>
 	</section>
-	<div class="results-page" aria-live="polite">
+	<section class="results-page">
 		<aside class="sidebar" >
-			<div class="show-results" id="show-results">
+			<div class="show-results" id="show-results" aria-live="polite">
 			</div>
 			<section class="results-container">
-				<ul class="results" id="results"></ul>
+				<ul class="results" id="results" aria-live="polite"></ul>
 			</section>
 		</aside>
-		<div id="map"></div>
+		<div id="map" aria-live="polite"></div>
 		<nav class="new-search">
 			<a href="#" role="button" class="btn btn--white btn--animated new-search-btn">New search</a>
 			<a href="#" role="button" class="btn btn--white btn--animated results-btn">Results</a>
 		</nav>
-	</div>
+	</section>
 	<script src="../public/index.js"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1_0d71jYnnDc9PCGNG7ulYOrhYQVNgQY&q"></script>	
 </body>
