@@ -17,6 +17,7 @@ body {
 
 .header__text-box {
 	text-align: center;
+	margin-top: 80px;
 }
 
 .heading-primary {
@@ -43,6 +44,27 @@ body {
 
 .js-search-form {
 	animation: moveInBottom 1s ease-out;
+}
+
+.arrow {
+	position: relative;
+	left: -8px;
+	background: lightblue;
+	padding: 8px 15px;
+}
+
+.arrow:after {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	border-color: rgba(32, 124, 202, 0);
+	border-right-color: lightblue;
+	border-width: 10px;
+	margin-top: -10px;
 }
 
 input {
@@ -174,11 +196,11 @@ input:focus::-moz-placeholder {
 /*mobile styles*/
 @media only screen { 
 	.heading-primary--main {
-		letter-spacing: 12px;
+		letter-spacing: 25px;
 	}
 
 	.heading-primary--sub {
-		letter-spacing: 6px;
+		letter-spacing: 9px;
 	}
 
 	.js-search-form {
