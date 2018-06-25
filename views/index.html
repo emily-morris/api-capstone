@@ -10,38 +10,38 @@
 	<link rel="stylesheet" type="text/css" href="../public/index.css">
 </head>
 <body>
-	<section role="search" class="landing-page">
-		<header class="header">
+	<main role="main" class="landing-page">
+		<header role="banner" class="header">
 			<div class="header__text-box">
 				<h1 class="heading-primary">
 					<span class="heading-primary--main">Close To Home</span>
 					<span class="heading-primary--sub">Find great child care near you</span>
 				</h1>
 				<form action="#" class="js-search-form">
-					<label for="address"></label>
+					<label for="address" class="hidden">Enter address or zip</label>
 					<input name="q" type="search" id="address" class="js-query" placeholder="Enter address or zip" required>
 					<span class="arrow">
-						<input type="submit" role="button" class="search-btn" value="Search">
+						<input type="submit" role="button" class="search-btn" value="Get map">
 					</span>
 				</form>
 			</div>
 		</header>
-	</section>
-	<section class="results-page">
-		<aside class="sidebar" >
+	</main>
+	<section role="complementary" class="results-page">
+		<div class="sidebar" >
 			<div class="show-results" id="show-results" aria-live="polite">
 			</div>
-			<section class="results-container">
+			<div>
 				<ul class="results" id="results" aria-live="polite"></ul>
-			</section>
-		</aside>
+			</div>
+		</div>
 		<div id="map" aria-live="polite"></div>
-		<nav class="new-search">
+		<nav role="navigation" class="new-search">
 			<a href="#" role="button" class="btn btn--white btn--animated new-search-btn">New search</a>
 			<a href="#" role="button" class="btn btn--white btn--animated results-btn">Results</a>
 		</nav>
 	</section>
-	<script src="../public/index.js"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1_0d71jYnnDc9PCGNG7ulYOrhYQVNgQY&q"></script>	
+	<script src="../public/index.js"></script>
 </body>
 </html>

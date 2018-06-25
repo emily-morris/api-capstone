@@ -15,7 +15,6 @@ $('.js-search-form').submit(event => {
     // var localPath = 'https://polar-tundra-83165.herokuapp.com';
     var localPath = 'http://localhost:3000';
     var params = { address:  $('.js-query').val()};
-    console.log(params);
     $.getJSON(localPath + '/api-capstone', params, function(data) {
         yelpData = data;
         initMap(data);

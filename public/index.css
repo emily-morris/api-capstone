@@ -48,6 +48,27 @@ body {
 	animation: moveInBottom 1s ease-out;
 }
 
+.hidden {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+input {
+	font-size: 1.4em;
+	font-family: 'Karla', sans-serif;
+	color: #004055;
+}
+
+input::placeholder {
+	color: #004055;
+	font-weight: 400;
+  padding-left: 10px;
+}
+
 #map,
 .sidebar {
   width: 50%;
@@ -82,26 +103,6 @@ body {
   margin-left: 10px;
   padding: 0 10px;
   font-size: 1em;
-}
-
-input {
-	font-size: 1.4em;
-	font-family: 'Karla', sans-serif;
-	color: #004055;
-	text-align: center;
-}
-
-input::placeholder {
-	color: #004055;
-	font-weight: 600;
-}
-
-input:focus::-webkit-input-placeholder {
-	color: transparent;
-}
-
-input:focus::-moz-placeholder {
-	color: transparent;
 }
 
 .btn:link,
@@ -184,29 +185,16 @@ input:focus::-moz-placeholder {
 	}
 }
 
-/*hide side menu scrollbar*/
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-	.results-container, 
-	.results {
-		transform: scale(-1, 1);
-		-webkit-transform: scale(-1, 1);
-	}
-
-	.results-container {
-		right: 15px;
-	}
-}
-
-/*medium screens and above*/
+/*small mobile screens and above*/
 @media all and (min-width: 320px) {
 	.heading-primary--main {
 		font-size: 70px;
-    letter-spacing: 6px;
+    	letter-spacing: 6px;
 	}
 
 	.heading-primary--sub {
 		font-size: 40px;
-    letter-spacing: 2px;
+    	letter-spacing: 2px;
 	}
 
 	#map,
@@ -240,10 +228,4 @@ input:focus::-moz-placeholder {
 	.sidebar {
 		height: 90vh;
 	}
-}
-
-@media all and (min-width: 810px) and (max-width: 900px) {
-	.new-search {
-		margin-top: 5px;
-	}	
 }
