@@ -10,15 +10,15 @@ As a new mom, I'm currently looking for the right daycare for my son. I wanted t
 
 Landing page and search form:
 
-<img src="https://cdn.glitch.com/a5bbbe7e-6504-4f3f-830a-77bdc68904c0%2Flanding-page.PNG?1529269431077" alt="landing page">
+<img src="https://cdn.glitch.com/a5bbbe7e-6504-4f3f-830a-77bdc68904c0%2Flanding-page.PNG?1529685037843" alt="landing page">
 
 Map with list of results:
 
-<img src="https://cdn.glitch.com/a5bbbe7e-6504-4f3f-830a-77bdc68904c0%2Fresults-page.PNG?1529270759531" alt="results page">
+<img src="https://cdn.glitch.com/a5bbbe7e-6504-4f3f-830a-77bdc68904c0%2Fresults-page.PNG?1529685093706" alt="results page">
 
 Map with route and directions:
 
-<img src="https://cdn.glitch.com/a5bbbe7e-6504-4f3f-830a-77bdc68904c0%2Fmap-and-directions.PNG?1529270909009" alt="map and directions">
+<img src="https://cdn.glitch.com/a5bbbe7e-6504-4f3f-830a-77bdc68904c0%2Fdirections-page.PNG?1529685153550" alt="directions page">
 
 <b>Built With</b>
 
@@ -38,10 +38,9 @@ Back-end:
 
 <b>Features</b>
 <ul>
-  <li>Search for child care site by entering address or zip code in search bar</li>
-  <li>See results on map and on sidebar with address and rating</li>
-  <li>Get routes on map by clicking on markers</li>
-  <li>Get directions by showing sidebar</li>
+  <li>Search for child care sites by entering address or zip code in search bar</li>
+  <li>See results on map and on sidebar with address, rating, and link to reviews</li>
+  <li>Get routes and directions by clicking on markers</li>
 </ul>
 
 <b>Demo</b>
