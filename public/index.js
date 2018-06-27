@@ -166,6 +166,6 @@ function populateSidebar(item) {
     let businessLoc2 = item.location.display_address[1];
     let businessRating = item.rating;
     let businessUrl = item.url;
-    let resultString = `<li><strong>${businessName}</strong><br/> <em>Address:</em> ${businessLoc1} ${businessLoc2}<br/> <em>Rating:</em> ${businessRating}<br/> <a href=${businessUrl}>See reviews</a></li>`;
+    let resultString = `<li><strong>${businessName}</strong><br/> <em>Address:</em> ${businessLoc1} ${businessLoc2}<br/> <em>Rating:</em> ${businessRating}<br/> <a href=${businessUrl} target="_blank">See reviews</a></li>`;
     $('.results').append(resultString);
 }
