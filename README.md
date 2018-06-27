@@ -14,11 +14,11 @@ Landing page and search form:
 
 Map with list of results:
 
-<img src="https://cdn.glitch.com/a5bbbe7e-6504-4f3f-830a-77bdc68904c0%2Fresults-page.PNG?1529685093706" alt="results page">
+<img src="https://cdn.glitch.com/a5bbbe7e-6504-4f3f-830a-77bdc68904c0%2Fresults-page.PNG?1530115590149" alt="results page">
 
 Map with route and directions:
 
-<img src="https://cdn.glitch.com/a5bbbe7e-6504-4f3f-830a-77bdc68904c0%2Fdirections-page.PNG?1529685153550" alt="directions page">
+<img src="https://cdn.glitch.com/a5bbbe7e-6504-4f3f-830a-77bdc68904c0%2Fdirections-page.PNG?1530115655860" alt="directions page">
 
 <b>Built With</b>
 
