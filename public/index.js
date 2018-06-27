@@ -11,15 +11,13 @@ $('#map').hide();
 //user submits search
 $('.js-search-form').submit(event => {
     event.preventDefault();
-    var defaultPath = '';
-    // var localPath = 'https://polar-tundra-83165.herokuapp.com';
-    var localPath = 'http://localhost:3000';
-    var params = { address:  $('.js-query').val()};
-    $.getJSON(localPath + '/api-capstone', params, function(data) {
+    $.get('/close-to-home?address=' + $('.js-query').val(), function(data) {
         yelpData = data;
         initMap(data);
     });
+   $('header').hide();
    $('.landing-page').hide();
+   $('.results-btn').hide();
    $('.results-page').show();
    $('#map').show();
    $('.sidebar').show();
@@ -30,21 +28,15 @@ $('.results-btn').click(event => {
     $('.sidebar').show();
     $('.show-results').empty();
     $('.results').show();
+    $('.results-btn').hide();
 });
 
 //back to homepage for new search
 $('.new-search-btn').click(event => {
-  $('.landing-page').show();
-  $('.results-page').hide();
-  $('.sidebar').hide();
-  $('#map').hide();
   location.reload();
 });
 
 //convert user input to latitude/longitude
-function createGeocoder() {
-  return new google.maps.Geocoder();
-}
 function codeAddress(geocoder, map, yelpResults) {
   let address = $('#address').val();
   geocoder.geocode(
@@ -72,17 +64,19 @@ function createMap(lat, lng) {
   return new google.maps.Map(
       document.getElementById('map'), {
           zoom: 11,
-          center: {
-              lat: 32.968288,
-              lng: -96.867130 
-          }
-      }
+    }
   )   
 }
 function initMap(yelpResults) {
   let userInput = $('.js-query').val();
-  let geocoder = createGeocoder();
+  let geocoder = new google.maps.Geocoder();
   const map = createMap();
+  directionsService = new google.maps.DirectionsService();
+  directionsDisplay = new google.maps.DirectionsRenderer({
+      suppressMarkers: false
+  });
+  directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById('show-results'));
   codeAddress(geocoder, map, yelpResults);   
 }
 
@@ -108,6 +102,7 @@ function getDir(resultLat, resultLng) {
       if (status == google.maps.DirectionsStatus.OK) {
           $('.show-results').empty();
           $(".results").hide();
+          $('.results-btn').show();
           directionsDisplay.setDirections(response);
       } 
   });
@@ -118,49 +113,31 @@ function compileResults(yelpResults, map, homeLoc) {
   yelpResults.forEach(function(item) {
       populateSidebar(item);
       updateMarker(item.coordinates.latitude, item.coordinates.longitude, map);
-
       let markers = [];
-
       //create info windows when clicking on markers
-      function getInfo() {
-          let numMarkers = yelpResults.length;
-          for(let i = 0; i < numMarkers; i++) {
-              markers[i] = new google.maps.Marker({
-                  position: {lat:yelpResults[i].coordinates.latitude, lng:yelpResults[i].coordinates.longitude},
-                  map: map,
-                  html: yelpResults[i].name + '<br/>' + yelpResults[i].location.address1,
-                  id: i
+      let numMarkers = yelpResults.length;
+      for(let i = 0; i < numMarkers; i++) {
+          markers[i] = new google.maps.Marker({
+              position: {lat:yelpResults[i].coordinates.latitude, lng:yelpResults[i].coordinates.longitude},
+              map: map,
+              html: yelpResults[i].name + '<br/>' + yelpResults[i].location.address1,
+              id: i
+          });
+          google.maps.event.addListener(markers[i], 'click', function() {
+              let infoWindow = new google.maps.InfoWindow({
+                  id: this.id,
+                  content: this.html + '<br/>' + '<input type="button" onClick="getDir(' + yelpResults[i].coordinates.latitude + ',' + yelpResults[i].coordinates.longitude + ')" value="Get directions">',
+                  position: this.getPosition()
               });
-
-              google.maps.event.addListener(markers[i], 'click', function() {
-                  let infoWindow = new google.maps.InfoWindow({
-                      id: this.id,
-                      content: this.html + '<br/>' + '<input type="button" onClick="getDir(' + yelpResults[i].coordinates.latitude + ',' + yelpResults[i].coordinates.longitude + ')" value="Get directions">',
-                      position: this.getPosition()
-                  });
-                  google.maps.event.addListenerOnce(infoWindow, 'closeclick', function() {
-                      markers[this.id].setVisible(true);
-                  });
-                  this.setVisible(false);
-                  infoWindow.open(map);
-              });
-              geocoder = new google.maps.Geocoder();
-              directionsService = new google.maps.DirectionsService();
-              directionsDisplay = new google.maps.DirectionsRenderer({
-                  suppressMarkers: false
-              });
-              directionsDisplay.setMap(map);
-              directionsDisplay.setPanel(document.getElementById('show-results'));
-          }
-      }
-      getInfo();
-      $('.js-query').val('');
+              infoWindow.open(map);
+          });
+    }
+    $('.js-query').val('');
   });
 }
 
 //show search results on sidebar
 function populateSidebar(item) {
-    console.log(item.url);
     let businessName = item.name;
     let businessLoc1 = item.location.display_address[0];
     let businessLoc2 = item.location.display_address[1];
