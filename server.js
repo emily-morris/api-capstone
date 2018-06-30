@@ -1,6 +1,3 @@
-// server.js
-// where your node app starts
-
 // init project
 const express = require('express');
 const app = express();
@@ -16,6 +13,7 @@ function searchYelp(address, res) {
     categories: 'childcare'
   };
   const client = yelp.client(apiKey);
+  
   let yelpResponse;
   client.search(searchRequest).then(response => {
     yelpResponse = response.jsonBody.businesses;
@@ -26,24 +24,26 @@ function searchYelp(address, res) {
     console.log(e);
   });
 }
-// http://expressjs.com/en/starter/static-files.html
+
 app.use(express.static('public'));
+
+//enable CORS
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
 app.get('/', (req, res) => {
   let response = searchYelp(req.query.address, res);
     res.sendFile(__dirname + '/views/index.html');
 });
-app.get('/api-capstone', (req, res) => {
-  console.log('hi');
-  let response = searchYelp(req.query.address, res);
 
-   // res.sendFile(__dirname + '/views/index.html');
+app.get('/close-to-home', (req, res) => {
+  let response = searchYelp(req.query.address, res);
 });
-// listen for requests :)
+
+// listen for requests
 let listener = app.listen(3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
