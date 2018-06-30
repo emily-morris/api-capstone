@@ -1,11 +1,12 @@
-// init project
 const express = require('express');
-const app = express();
+const morgan = require('morgan');
 const yelp = require('yelp-fusion');
-const apiKey = 'NBivNTuADzZxyu1I7Unf0QUQmPx4O5kFGp-ts88mrAotHHmEuzn46TgXVNzwvVjPeC_4Wm4Tn7qSluT-k4-nJV0WzLFTaDc1W7bPLgJl0euIseVGP0mG0lxCllQRW3Yx';
-var morgan = require('morgan')
 
-app.use(morgan('combined'))
+const app = express();
+
+app.use(morgan('combined'));
+
+const apiKey = 'NBivNTuADzZxyu1I7Unf0QUQmPx4O5kFGp-ts88mrAotHHmEuzn46TgXVNzwvVjPeC_4Wm4Tn7qSluT-k4-nJV0WzLFTaDc1W7bPLgJl0euIseVGP0mG0lxCllQRW3Yx';
 function searchYelp(address, res) {
   const searchRequest = {
     location: address,
